@@ -24,7 +24,7 @@ app.use("/api/events", require("./routes/eventRoutes"));
 app.use("/api/student", require("./routes/studentRoutes"));
 // ✅ Test route
 app.get("/", (req, res) => {
-  res.send("API Running");
+  res.send("CampusConnect API Running 🚀");
 });
 
 app.use((err, req, res, next) => {
