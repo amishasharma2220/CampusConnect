@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Users, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import hero from "../../assets/hero-campus.jpg";
+import hero from "../../assets/hero_campus.jpg";
 
 const HeroSection = () => {
   return (
