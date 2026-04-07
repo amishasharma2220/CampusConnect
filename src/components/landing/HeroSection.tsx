@@ -10,7 +10,7 @@ const HeroSection = () => {
       {/* Background image */}
       <div className="absolute inset-0">
         <img
-          src={heroCampus}
+          src={hero}
           alt="Manipal University Jaipur campus event"
           className="w-full h-full object-cover"
         />
