@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
+    trim: true,
+    match: [/^\S+@\S+\.\S+$/, "Please use a valid email"],
   },
   registrationNumber: {
     type: String,
@@ -39,12 +42,15 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  registeredEvents: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Event"
-    }
-  ]
+  registeredEvents: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event"
+      }
+    ],
+    default: []
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);

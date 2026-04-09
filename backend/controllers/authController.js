@@ -14,12 +14,16 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid email or user not found" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined");
     }
 
     const token = jwt.sign(
@@ -28,7 +32,8 @@ exports.login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    const { password: pwd, ...userData } = user._doc;
+    const userData = user.toObject();
+    delete userData.password;
     res.json({ token, user: userData });
 
   } catch (err) {
@@ -69,13 +74,18 @@ exports.register = async (req, res) => {
     const savedUser = await user.save();
     console.log("✅ USER SAVED:", savedUser);
 
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined");
+    }
+
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    const { password: pwd, ...userData } = user._doc;
+    const userData = user.toObject();
+    delete userData.password;
 
     res.status(201).json({
       message: "User registered successfully",
