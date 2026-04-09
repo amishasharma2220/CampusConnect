@@ -100,7 +100,8 @@ const { profile, registeredEvents, upcomingEvents, events, loading } = useStuden
                       onClick={async () => {
                         try {
                           setActionLoading(event._id);
-                          await fetch(`http://localhost:5001/api/events/unregister/${event._id}`, {
+                          const API = import.meta.env.VITE_API_URL;
+                          await fetch(`${API}/api/events/unregister/${event._id}`, {
                             method: "POST",
                             headers: {
                               Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -155,7 +156,8 @@ const { profile, registeredEvents, upcomingEvents, events, loading } = useStuden
                       onClick={async () => {
                         try {
                           setActionLoading(event._id);
-                          await fetch(`http://localhost:5001/api/events/register/${event._id}`, {
+                          const API = import.meta.env.VITE_API_URL;
+                          await fetch(`${API}/api/events/register/${event._id}`, {
                             method: "POST",
                             headers: {
                               Authorization: `Bearer ${localStorage.getItem("token")}`

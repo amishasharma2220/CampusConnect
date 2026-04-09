@@ -30,7 +30,8 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/student/profile", {
+        const API = import.meta.env.VITE_API_URL;
+        const res = await fetch(`${API}/api/student/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -55,7 +56,8 @@ const StudentProfile = () => {
 
   const handleSaveProfile = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/student/profile", {
+      const API = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${API}/api/student/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
