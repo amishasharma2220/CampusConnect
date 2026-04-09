@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const connectDB = require("./config/db");
 
 const app = express();
+app.set("trust proxy", 1);
 const eventRoutes = require("./routes/eventRoutes");
 
 // ✅ Middlewares (order matters)
@@ -30,12 +31,20 @@ mongoose.connection.on("connected", () => {
 app.get("/", (req, res) => {
   res.json({ message: "CampusConnect API Running 🚀" });
 });
+app.head("/", (req, res) => {
+  res.status(200).end();
+});
 
 // ✅ Routes
 app.use("/api/contact", require("./routes/contactRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/events", eventRoutes);
 app.use("/api/student", require("./routes/studentRoutes"));
+
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route not found" });
+});
 
 app.use((err, req, res, next) => {
   console.error("❌ Server Error:", err.message);
@@ -44,6 +53,9 @@ app.use((err, req, res, next) => {
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
+});
+app.head("/health", (req, res) => {
+  res.status(200).end();
 });
 const PORT = process.env.PORT || 5001;
 // ✅ Start server
