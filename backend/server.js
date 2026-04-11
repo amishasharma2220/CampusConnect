@@ -21,8 +21,10 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ DB connection
-connectDB();
+// ✅ DB connection (skip during tests)
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
 mongoose.connection.on("connected", () => {
   console.log("Connected DB:", mongoose.connection.name);
 });
@@ -60,7 +62,12 @@ app.head("/health", (req, res) => {
   res.status(200).end();
 });
 const PORT = process.env.PORT || 10000;
-// ✅ Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+
+// ✅ Start server (skip during tests)
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
