@@ -38,6 +38,8 @@ app.head("/", (req, res) => {
 // ✅ Routes
 app.use("/api/contact", require("./routes/contactRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
+// Support both /api/auth and /auth for compatibility
+app.use("/auth", require("./routes/authRoutes"));
 app.use("/api/events", eventRoutes);
 app.use("/api/student", require("./routes/studentRoutes"));
 
