@@ -35,11 +35,15 @@ jobs:
       # =========================
       # 🎨 FRONTEND (FIXED PATH)
       # =========================
-      - name: Install frontend dependencies
-        run: npm install
+# ✅ Frontend (root)
+- name: Install frontend dependencies
+  run: npm install
 
-      - name: Build frontend
-        run: npm run build
+- name: Build frontend
+  run: npm run build
+
+- name: Build frontend Docker image
+  run: docker build -t campusconnect-frontend .
 
       # =========================
       # 🐳 DOCKER
