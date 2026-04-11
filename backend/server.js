@@ -57,8 +57,8 @@ app.get("/health", (req, res) => {
 app.head("/health", (req, res) => {
   res.status(200).end();
 });
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 10000;
 // ✅ Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
