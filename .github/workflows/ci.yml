@@ -11,31 +11,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ✅ Checkout
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ✅ Setup Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # Backend
+      # =========================
+      # 🔧 BACKEND
+      # =========================
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
-      # Frontend
+      - name: Check backend build
+        working-directory: ./backend
+        run: node -e "require('./server.js')"
+
+      # =========================
+      # 🎨 FRONTEND (FIXED PATH)
+      # =========================
       - name: Install frontend dependencies
-        working-directory: ./frontend
         run: npm install
 
       - name: Build frontend
-        working-directory: ./frontend
         run: npm run build
 
-      # Docker builds
+      # =========================
+      # 🐳 DOCKER
+      # =========================
       - name: Build backend Docker image
         run: docker build -t campusconnect-backend ./backend
 
       - name: Build frontend Docker image
-        run: docker build -t campusconnect-frontend ./frontend
+        run: docker build -t campusconnect-frontend .
