@@ -100,10 +100,11 @@ const { profile, registeredEvents, upcomingEvents, events, loading } = useStuden
                       onClick={async () => {
                         try {
                           setActionLoading(event._id);
-                          const API = import.meta.env.VITE_API_URL;
+                          const API = import.meta.env.VITE_API_URL || "https://campusconnect-2177.onrender.com";
                           await fetch(`${API}/api/events/unregister/${event._id}`, {
                             method: "POST",
                             headers: {
+                              "Content-Type": "application/json",
                               Authorization: `Bearer ${localStorage.getItem("token")}`
                             }
                           });
@@ -156,10 +157,11 @@ const { profile, registeredEvents, upcomingEvents, events, loading } = useStuden
                       onClick={async () => {
                         try {
                           setActionLoading(event._id);
-                          const API = import.meta.env.VITE_API_URL;
+                          const API = import.meta.env.VITE_API_URL || "https://campusconnect-2177.onrender.com";
                           await fetch(`${API}/api/events/register/${event._id}`, {
                             method: "POST",
                             headers: {
+                              "Content-Type": "application/json",
                               Authorization: `Bearer ${localStorage.getItem("token")}`
                             }
                           });

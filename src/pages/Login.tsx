@@ -33,8 +33,8 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const API = import.meta.env.VITE_API_URL;
-      const res = await fetch(`${API}/auth/login`, {
+      const API = import.meta.env.VITE_API_URL || "https://campusconnect-2177.onrender.com";
+      const res = await fetch(`${API}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
