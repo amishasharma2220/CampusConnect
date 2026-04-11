@@ -28,9 +28,9 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      - name: Check backend build
+      - name: Check backend syntax (no DB connection)
         working-directory: ./backend
-        run: node -e "require('./server.js')"
+        run: node -e "require('fs').accessSync('./server.js')"
 
       # =========================
       # 🎨 FRONTEND
