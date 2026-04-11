@@ -49,3 +49,11 @@ jobs:
 
       - name: Build frontend Docker image
         run: docker build -t campusconnect-frontend .
+
+      # =========================
+      # 🚀 CD DEPLOY
+      # =========================
+      - name: Deploy to Render
+        if: success()
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
